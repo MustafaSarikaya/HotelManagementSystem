@@ -1,0 +1,10 @@
+{
+    "dev": {
+      "host": "localhost",
+      "user": "root",
+      "password" : "Password123!",
+      "database": "HMS_database",
+      "driver": "mysql",
+      "multipleStatements": true
+    }
+  }
