@@ -1,4 +1,4 @@
-const Employee = require('../Models/employeeModel');
+const Employee = require('../Models/employees');
 
 // POST /employees/:id
 // Register an employee

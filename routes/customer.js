@@ -3,11 +3,13 @@ var router = express.Router();
 
 //Require controller modules.
 var customer_controller = require('../domain/Customer/Controllers/customerController');
-var booking_controller = require('../domain/Customer/Controllers/controllers/bookingController');
+var booking_controller = require('../domain/Customer/Controllers/bookingController');
 var room_controller = require('../domain/Customer/Controllers/roomController');
 
 // GET customer home page.
-router.get('/', customer_controller.index);
+router.get('/customer', function(req, res, next) {
+    res.render('index', { title: 'Customer Portal' });
+});
 
 // POST register customer
 router.post('/customer/:id', customer_controller.register_customer);

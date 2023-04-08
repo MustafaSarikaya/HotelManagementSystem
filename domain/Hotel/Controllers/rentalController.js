@@ -1,4 +1,4 @@
-const Rental = require('../Models/rental');
+const Rental = require('../Models/rentals');
 
 // POST /rentals/:id/customer/:customer_id
 // Create a rental for the customer

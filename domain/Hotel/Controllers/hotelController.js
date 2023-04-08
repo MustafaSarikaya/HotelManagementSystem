@@ -1,4 +1,4 @@
-const Hotel = require('../Models/hotel');
+const Hotel = require('../Models/hotels');
 
 // GET /chain
 // Fetch all hotel chains

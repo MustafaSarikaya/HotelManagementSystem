@@ -6,11 +6,11 @@ var hotel_controller = require('../domain/Hotel/Controllers/hotelController');
 var room_controller = require('../domain/Hotel/Controllers/roomController');
 var booking_controller = require('../domain/Hotel/Controllers/bookingController');
 var rental_controller = require('../domain/Hotel/Controllers/rentalController');
-var employee_controller = require('../domain/Hotel/Controllers/employeeController');  
+var employee_controller = require('../domain/Employee/Controllers/employeeController');  
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('index', { title: 'HMS' });
 });
 
 // GET fetch all hotel chains
