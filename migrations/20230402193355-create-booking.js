@@ -17,8 +17,7 @@ exports.setup = function(options, seedLink) {
 exports.up = function(db) {
   var sql = `CREATE TABLE booking (
                     booking_ID INT(11) NOT NULL AUTO_INCREMENT,
-                    hotel_ID INT(11) NOT NULL,
-                    chain_ID INT(11) NOT NULL,
+                    room_ID INT(11) NOT NULL,
                     start_date DATE NOT NULL,
                     end_date DATE NOT NULL,
                     guest_name DATE NOT NULL,
@@ -30,11 +29,7 @@ exports.up = function(db) {
                     view_type ENUM('sea', 'mountain') NOT NULL,
                     extendability INT(2) NOT NULL,
                     problems VARCHAR(255),
-                    PRIMARY KEY (booking_ID),
-                    FOREIGN KEY (chain_ID) REFERENCES chain (chain_ID)
-                      ON DELETE CASCADE,
-                    FOREIGN KEY (hotel_ID) REFERENCES hotel (hotel_ID)
-                      ON DELETE CASCADE
+                    PRIMARY KEY (booking_ID)
   );`;
 
 return db.runSql(sql);

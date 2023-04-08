@@ -18,7 +18,6 @@ exports.up = function(db) {
   var sql = `CREATE TABLE room (
                     room_ID INT(11) NOT NULL AUTO_INCREMENT,
                     hotel_ID INT(11) NOT NULL,
-                    chain_ID INT(11) NOT NULL,
                     room_number INT(3) NOT NULL,
                     price_per_night DECIMAL(6,2) NOT NULL,
                     amenities VARCHAR(255),
@@ -27,8 +26,6 @@ exports.up = function(db) {
                     extendability INT(1) NOT NULL,
                     problems VARCHAR(255),
                     PRIMARY KEY (room_ID),
-                    FOREIGN KEY (chain_ID) REFERENCES chain (chain_ID)
-                      ON DELETE CASCADE,
                     FOREIGN KEY (hotel_ID) REFERENCES hotel (hotel_ID)
                       ON DELETE CASCADE
   );`;

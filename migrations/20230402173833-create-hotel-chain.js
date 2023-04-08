@@ -20,9 +20,9 @@ exports.up = function(db) {
                     chain_name VARCHAR(100) NOT NULL, 
                     email VARCHAR(255) NOT NULL, 
                     number_hotels INT(4) NOT NULL CHECK (number_hotels > 0), 
-                    phone_number VARCHAR(12) NOT NULL, 
+                    phone_number VARCHAR(100) NOT NULL, 
                     address VARCHAR(255) NOT NULL,
-                    PRIMARY KEY (chain_ID));`;
+                    PRIMARY KEY (chain_ID)) AUTO_INCREMENT=1;`;
 
   return db.runSql(sql);
 };

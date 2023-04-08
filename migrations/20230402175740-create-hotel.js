@@ -23,12 +23,12 @@ exports.up = function(db) {
                     number_rooms INT(4) NOT NULL CHECK (number_rooms > 0),
                     email VARCHAR(50) NOT NULL,
                     manager_ID INT(11) NOT NULL,
-                    phone_number VARCHAR(12) NOT NULL, 
+                    phone_number VARCHAR(100) NOT NULL, 
                     address VARCHAR(255) NOT NULL,
                     PRIMARY KEY (hotel_ID),
                     FOREIGN KEY (chain_ID) REFERENCES chain (chain_ID)
                       ON DELETE CASCADE
-  );`;
+  ) AUTO_INCREMENT=1;`;
 
   return db.runSql(sql);
 };
