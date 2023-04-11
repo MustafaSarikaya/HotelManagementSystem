@@ -8,7 +8,7 @@ var indexRouter = require("./routes/index");
 var customersRouter = require("./routes/customer");
 
 const dotenv = require("dotenv");
-dotenv.config({path: '.env-local'});
+dotenv.config({path: '.env.local'});
 
 var app = express();
 
