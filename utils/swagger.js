@@ -1,33 +1,23 @@
-const swaggerJsdoc = require('swagger-jsdoc');
-const swaggerUi = require('swagger-ui-express');
-const { version } = require('../package.json');
-const logger = require('pino')();
+const swaggerJSDoc = require("swagger-jsdoc");
+const swaggerUI = require("swagger-ui-express");
 
-function swaggerDocs(app, port) {
-  const options = {
-    swagger : '2.0',
-      definition: {
-        openapi: '3.0.0',
-        info: {
-          title: 'HMS API docs',
-          version: '0.1.0',
-          description: "asdfjasdf"
-        },
-      },
-      apis: ['./routes/*.js'],
-    };
-  
-  const swaggerSpec = swaggerJsdoc(options);
-  // Swagger page
-  app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+const options = {
+  definition: {
+    openapi: "3.0.0",
 
-  // Docs in JSON format
-  app.get('/docs.json', (req, res) => {
-    res.setHeader("Content-Type", "application/json");
-    res.send(swaggerSpec);
-  });
+    info: {
+      title: "testApi",
 
-  logger.info(`Docs available at http://localhost:${port}/api-docs`);
-}
+      version: "1.0.0",
 
-module.exports = swaggerDocs;
+      descrption: "Description",
+    },
+  },
+
+  apis: ["./routes/*.js"],
+};
+
+const specs = swaggerJSDoc(options);
+
+module.exports = (app) => app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
+

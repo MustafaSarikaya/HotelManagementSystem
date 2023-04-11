@@ -34,11 +34,12 @@ exports.room_create = (req, res, next) => {
     res.send('respond with a resource');
 }
 
-// GET /chain/:chain_id/hotel/:hotel_id/rooms/search
-// Fetch available rooms
+// GET /chain/:chain_id/hotel/:hotel_id/rooms/aviaible
+// Fetch all available rooms of a hotel
 exports.rooms_search = (req, res, next) => {
     res.send('respond with a resource');
 }
+
 
 
 

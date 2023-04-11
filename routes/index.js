@@ -13,7 +13,20 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'HMS' });
 });
 
-// GET fetch all hotel chains
+/**
+ * @swagger
+ * tags:
+ *   name: Hotel Chains
+ * /chain:
+ *   GET:
+ *     summary: Fetch all hotel chains
+ *   responses:
+ *     200:
+ *       description: List of hotel chains
+ *       content: 
+ *         application/json:
+ * 
+ */
 router.get('/chain', hotel_controller.fetch_all_hotel_chains);
 
 // POST create a hotel chain
@@ -81,5 +94,25 @@ router.get('/rentals/customer/:customer_id', rental_controller.fetch_all_rentals
 
 // PUT Update rental details for the customer
 router.put('/rentals/:id', rental_controller.update_rental);
+
+// POST create an employee
+router.post('/employee/:id', employee_controller.register_employee);
+
+// UPDATE update employee details
+router.put('/employee/:id', employee_controller.update_employee_details);
+
+// GET fetch employee details
+router.get('/employee/:id', employee_controller.fetch_employee_details);
+
+// GET fetch all employees
+router.get('/employee', employee_controller.fetch_all_employees);
+
+// POST toggle employee role
+router.post('/employee/:id', employee_controller.toggle_employee_role);
+
+// DELETE delete an employee
+router.delete('/employee/:id', employee_controller.delete_employee);
+
+
 
 module.exports = router;

@@ -1,9 +1,10 @@
-const Hotel = require('../Models/hotels');
+const model = require('../Models/hotels');
 
-// GET /chain
-// Fetch all hotel chains
+// Generate the swagger documentation for the fetch all hotel chains API
+
 exports.fetch_all_hotel_chains = (req, res, next) => {
-    res.send('respond with a resource');
+    var chains = model.fetch_all_hotel_chains;
+    res.send(chains);
 }
 
 // POST /chain/:chain_id
