@@ -8,7 +8,9 @@ var indexRouter = require("./routes/index");
 var customersRouter = require("./routes/customer");
 
 const dotenv = require("dotenv");
-dotenv.config({path: '.env.local'});
+// dotenv.config({path: '.env.local'});
+
+const port = process.env.PORT || 8000;
 
 var app = express();
 
@@ -21,10 +23,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
-swagger(app);
+
 
 app.use("/hms/api", indexRouter);
-app.use("/hms/api/", customersRouter);
+app.use("/hms/api", customersRouter);
+swagger(app);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -42,7 +45,7 @@ app.use(function (err, req, res, next) {
   res.render("error");
 });
 
-const port = process.env.PORT || 8000;
+
 
 // Listening Server
 app.listen(port, () => {
