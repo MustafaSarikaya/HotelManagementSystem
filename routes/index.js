@@ -448,11 +448,61 @@ router.delete('/chain/hotel/room/:room_id', room_controller.room_delete);
 // // GET fecth available rooms
 // router.get('/chain/:chain_id/hotel/:hotel_id/room/search', room_controller.rooms_search);
 
-// // POST create a booking for the customer
-// router.post('/bookings/:id/customer/:customer_id', booking_controller.create_booking);
+/**
+ * @openapi
+ * paths:
+ *   /hms/api/bookings/:
+ *     post:
+ *       tags:
+ *         - Booking
+ *       summary: create a booking for the customer
+ *       requestBody:
+ *         content:
+ *           'application/x-www-form-urlencoded':
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 room_ID:
+ *                   type: number
+ *                   default: 111
+ *                 start_date:
+ *                   type: number
+ *                   default: '2023.03.06'
+ *                 end_date:
+ *                   type: string
+ *                   default: '2023.03.14'
+ *                 rental_price:
+ *                   type: number
+ *                   default: 200
+ *                 additional_charge:
+ *                   type: number
+ *                   default: 25
+ *                 customer_ID:
+ *                   type: number
+ *                   default: 1
+ *       responses:
+ *         201:
+ *           description: Created a booking
+ */
+router.post('/bookings/', booking_controller.create_booking);
 
-// // GET fetch booking details for the customer
-// router.get('/bookings/:id', booking_controller.fetch_booking_details);
+/**
+ * @openapi
+ * paths:
+ *   /hms/api/chain/hotel/{hotel_id}/room/:
+ *     get:
+ *       tags:
+ *         - Room 
+ *       summary: fetch all rooms of a hotel
+ *       parameters: 
+ *       - name: hotel_id
+ *         in: path
+ *         required: true 
+ *       responses:
+ *         200:
+ *           description: Booking details
+ */
+router.get('/bookings/:id', booking_controller.fetch_booking_details);
 
 // // GET fetch all bookings of a customer
 // router.get('/bookings/customer/:customer_id', booking_controller.fetch_all_bookings);
