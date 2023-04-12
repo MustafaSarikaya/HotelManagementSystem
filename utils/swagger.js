@@ -6,7 +6,7 @@ const options = {
   definition: {
     openapi: "3.0.0",
     info: {
-      title: "HMS API",
+      title: "Welcome to HMS",
       version: "1.0.0",
       descrption: "Description",
     },
@@ -16,7 +16,7 @@ const options = {
 };
 
 const specs = swaggerJSDoc(options);
-logger.info(specs);
+// logger.info(specs);
 
 module.exports = (app) => app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
 // module.exports = (app) => app.get("docs.json", (req, res) => {

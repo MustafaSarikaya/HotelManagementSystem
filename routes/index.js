@@ -28,7 +28,6 @@ router.get('/', function(req, res, next) {
  *             application/json:
  *               schema:
  *                 type: array
- *                 properties:
  */
 router.get('/chain', hotel_controller.fetch_all_hotel_chains);
 
@@ -48,14 +47,19 @@ router.get('/chain', hotel_controller.fetch_all_hotel_chains);
  *               properties:
  *                 chain_name:
  *                   type: string
+ *                   default: 'Marriott Hotel'
  *                 email:
  *                   type: string
+ *                   default: 'Marriott@gmail.com'
  *                 number_hotels:
  *                   type: number
+ *                   default: '7'
  *                 phone_number:
  *                   type: string
+ *                   default: '123 45 6767'
  *                 address:
  *                   type: string
+ *                   default: '111 Queen Street West, Toronto, ON, Canada'
  *       responses:
  *         200:
  *           description: 
@@ -66,8 +70,7 @@ router.get('/chain', hotel_controller.fetch_all_hotel_chains);
  *                 properties:
  */
 router.post('/chain', hotel_controller.create_hotel_chain);
-
-// GET 
+ 
 /**
  * @openapi
  * paths:
@@ -82,11 +85,7 @@ router.post('/chain', hotel_controller.create_hotel_chain);
  *         required: true
  *       responses:
  *         200:
- *           description: A hotel chains
- *           content: 
- *             application/json:
- *               schema:
- *                 $ref: '#/components/schemes/Chain'
+ *           description: A hotel chain
  */
 router.get('/chain/:chain_id', hotel_controller.fetch_hotel_chain_details);
 
@@ -94,7 +93,7 @@ router.get('/chain/:chain_id', hotel_controller.fetch_hotel_chain_details);
  * @openapi
  * paths:
  *   /hms/api/chain/{chain_id}:
- *     post:
+ *     put:
  *       tags:
  *         - Hotel Chain
  *       summary: update hotel chain details
@@ -110,14 +109,19 @@ router.get('/chain/:chain_id', hotel_controller.fetch_hotel_chain_details);
  *               properties:
  *                 chain_name:
  *                   type: string
+ *                   default: 'Marriott Hotel'
  *                 email:
  *                   type: string
+ *                   default: 'Marriott@gmail.com'
  *                 number_hotels:
  *                   type: number
+ *                   default: '7'
  *                 phone_number:
  *                   type: string
+ *                   default: '123 45 6767'
  *                 address:
  *                   type: string
+ *                   default: '111 Queen Street West, Toronto, ON, Canada'
  *       responses:
  *         200:
  *           description: 
@@ -129,11 +133,68 @@ router.get('/chain/:chain_id', hotel_controller.fetch_hotel_chain_details);
  */
 router.put('/chain/:chain_id', hotel_controller.update_hotel_chain_details);
 
-// // DELETE delete a hotel chain
-// router.delete('/chain/:chain_id', hotel_controller.delete_hotel_chain);
+/**
+ * @openapi
+ * paths:
+ *   /hms/api/chain/{chain_id}:
+ *     delete:
+ *       tags:
+ *         - Hotel Chain 
+ *       summary: delete hotel chain
+ *       parameters:
+ *       - name: chain_id
+ *         in: path
+ *         required: true
+ *       responses:
+ *         203:
+ *           description: 
+ */
+router.delete('/chain/:chain_id', hotel_controller.delete_hotel_chain);
 
-// // POST create a hotel
-// router.post('/chain/:chain_id/hotel/:hotel_id', hotel_controller.create_hotel);
+/**
+ * @openapi
+ * paths:
+ *   /hms/api/chain/{chain_id}/hotel:
+ *     post:
+ *       tags:
+ *         - Hotel
+ *       summary: create a hotel 
+ *       parameters:
+ *       - name: chain_id
+ *         in: path
+ *         required: true 
+ *       requestBody:
+ *         content:
+ *           'application/x-www-form-urlencoded':
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 name:
+ *                   type: string
+ *                   default: 'Marriott Hotel'
+ *                 rating:
+ *                   type: number
+ *                   default: 4
+ *                 number_rooms:
+ *                   type: number
+ *                   default: '5'
+ *                 email:
+ *                   type: string
+ *                   default: 'marriotthotel@gmail.com'
+ *                 manager_id:
+ *                   type: number
+ *                   default: '1'
+ *                 phone_number:
+ *                   type: string
+ *                   default: '123 45 6767'
+ *                 address:
+ *                   type: string
+ *                   default: '111 Queen Street West, Toronto, ON, Canada'
+ *       responses:
+ *         201:
+ *           description: Created a hotel
+ */
+router.post('/chain/:chain_id/hotel', hotel_controller.create_hotel);
 
 /**
  * @openapi
@@ -150,10 +211,6 @@ router.put('/chain/:chain_id', hotel_controller.update_hotel_chain_details);
  *       responses:
  *         200:
  *           description: List of hotel chains
- *           content: 
- *             application/json:
- *               schema:
- *                 $ref: '#/components/schemes/Chain'
  */
 router.get('/chain/hotel/:hotel_id', hotel_controller.fetch_hotel_details);
 
@@ -171,19 +228,120 @@ router.get('/chain/hotel/:hotel_id', hotel_controller.fetch_hotel_details);
  *         required: true 
  *       responses:
  *         200:
- *           description: List of hotels
- *           content: 
- *             application/json:
- *               schema:
- *                 $ref: '#/components/schemes/Hotel'
+ *           description: List of hotels of a chain
  */
 router.get('/chain/:chain_id/hotel/', hotel_controller.fetch_all_hotels_of_chain);
 
-// // PUT update hotel details
-// router.put('/chain/:chain_id/hotel/:hotel_id', hotel_controller.update_hotel_details);
+/**
+ * @openapi
+ * paths:
+ *   /hms/api/chain/hotel/{hotel_id}:
+ *     put:
+ *       tags:
+ *         - Hotel
+ *       summary: update a hotel 
+ *       parameters:
+ *       - name: hotel_id
+ *         in: path
+ *         required: true 
+ *       requestBody:
+ *         content:
+ *           'application/x-www-form-urlencoded':
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 chain_id:
+ *                   type: number
+ *                   default: 30
+ *                 name:
+ *                   type: string
+ *                   default: 'Marriott Hotel'
+ *                 rating:
+ *                   type: numebr
+ *                   default: 4
+ *                 number_rooms:
+ *                   type: number
+ *                   default: '5'
+ *                 email:
+ *                   type: string
+ *                   default: 'marriotthotel@gmail.com'
+ *                 manager_id:
+ *                   type: number
+ *                   default: '1'
+ *                 phone_number:
+ *                   type: string
+ *                   default: '123 45 6767'
+ *                 address:
+ *                   type: string
+ *                   default: '111 Queen Street West, Toronto, ON, Canada'
+ *       responses:
+ *         200:
+ *           description: Updated a hotel
+ */
+router.put('/chain/hotel/:hotel_id', hotel_controller.update_hotel_details);
 
-// // POST create a room
-// router.post('/chain/:chain_id/hotel/:hotel_id/room/:room_id', room_controller.room_create);
+/**
+ * @openapi
+ * paths:
+ *   /hms/api/chain/hotel/{hotel_id}:
+ *     delete:
+ *       tags:
+ *         - Hotel 
+ *       summary: delete hotel
+ *       parameters:
+ *       - name: hotel_id
+ *         in: path
+ *         required: true
+ *       responses:
+ *         203:
+ *           description: 
+ */
+router.delete('/chain/hotel/:hotel_id', hotel_controller.delete_hotel);
+
+/**
+ * @openapi
+ * paths:
+ *   /hms/api/chain/hotel/{hotel_id}/room:
+ *     post:
+ *       tags:
+ *         - Room
+ *       summary: create a room 
+ *       parameters:
+ *       - name: hotel_id
+ *         in: path
+ *         required: true 
+ *       requestBody:
+ *         content:
+ *           'application/x-www-form-urlencoded':
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 room_number:
+ *                   type: number
+ *                   default: 111
+ *                 price_per_night:
+ *                   type: number
+ *                   default: 104
+ *                 amenities:
+ *                   type: string
+ *                   default: 'wifi,tv,PS5'
+ *                 room_capacity:
+ *                   type: number
+ *                   default: 5
+ *                 view_type:
+ *                   type: string
+ *                   default: 'mountain'
+ *                 extendability:
+ *                   type: number
+ *                   default: 1
+ *                 problems:
+ *                   type: string
+ *                   default: 'none'
+ *       responses:
+ *         201:
+ *           description: Created a room
+ */
+router.post('/chain/hotel/:hotel_id/room', room_controller.room_create);
 
 /**
  * @openapi
@@ -200,10 +358,6 @@ router.get('/chain/:chain_id/hotel/', hotel_controller.fetch_all_hotels_of_chain
  *       responses:
  *         200:
  *           description: Room Details
- *           content: 
- *             application/json:
- *               schema:
- *                 $ref: '#/components/schemes/Room'
  */
 router.get('/chain/hotel/room/:room_id', room_controller.room_detail);
 
@@ -222,27 +376,172 @@ router.get('/chain/hotel/room/:room_id', room_controller.room_detail);
  *       responses:
  *         200:
  *           description: A List of Rooms
- *           content: 
- *             application/json:
- *               schema:
- *                 $ref: '#/components/schemes/Room'
  */
 router.get('/chain/hotel/:hotel_id/room/', room_controller.rooms_list);
 
-// // PUT update room details
-// router.put('/chain/:chain_id/hotel/:hotel_id/room/:room_id', room_controller.room_update);
+/**
+ * @openapi
+ * paths:
+ *   /hms/api/chain/hotel/room/{room_id}:
+ *     put:
+ *       tags:
+ *         - Room
+ *       summary: update a room 
+ *       parameters:
+ *       - name: room_id
+ *         in: path
+ *         required: true 
+ *       requestBody:
+ *         content:
+ *           'application/x-www-form-urlencoded':
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 hotel_id:
+ *                   type: number
+ *                   default: 32
+ *                 room_number:
+ *                   type: number
+ *                   default: 111
+ *                 price_per_night:
+ *                   type: number
+ *                   default: 104
+ *                 amenities:
+ *                   type: string
+ *                   default: 'wifi,tv,PS5'
+ *                 room_capacity:
+ *                   type: number
+ *                   default: 5
+ *                 view_type:
+ *                   type: string
+ *                   default: 'mountain'
+ *                 extendability:
+ *                   type: number
+ *                   default: 1
+ *                 problems:
+ *                   type: string
+ *                   default: 'none'
+ *       responses:
+ *         200:
+ *           description: Updated a room
+ */
+router.put('/chain/hotel/room/:room_id', room_controller.room_update);
 
-// // DELETE delete a room
-// router.delete('/chain/:chain_id/hotel/:hotel_id/room/:room_id', room_controller.room_delete);
+/**
+ * @openapi
+ * paths:
+ *   /hms/api/chain/hotel/room/{room_id}:
+ *     delete:
+ *       tags:
+ *         - Room 
+ *       summary: delete room
+ *       parameters:
+ *       - name: room_id
+ *         in: path
+ *         required: true
+ *       responses:
+ *         203:
+ *           description: 
+ */
+router.delete('/chain/hotel/room/:room_id', room_controller.room_delete);
 
-// // GET fecth available rooms
-// router.get('/chain/:chain_id/hotel/:hotel_id/room/search', room_controller.rooms_search);
+/**
+ * @openapi
+ * paths:
+ *   /hms/api/chain/hotel/{hotel_id}/room-search:
+ *     get:
+ *       tags:
+ *         - Room 
+ *       summary: fetch available rooms
+ *       parameters:
+ *       - name: hotel_id
+ *         in: path
+ *         required: true
+ *       - name: room_capacity
+ *         in: query
+ *         default: 2
+ *       - name: start_date
+ *         in: query
+ *         default: '2023.03.06'
+ *       - name: end_date
+ *         in: query
+ *         default: '2023.03.14'
+ *       - name: address
+ *         in: query
+ *         default: "Toronto"
+ *       - name: name
+ *         in: query
+ *         default: "Marriott Hotel"
+ *       - name: rating
+ *         in: query
+ *         default: 4
+ *       - name: price_per_night
+ *         in: query
+ *         default: 150
+ *       - name: room_number
+ *         in: query
+ *         default: 5
+ *       responses:
+ *         200:
+ *           description: A List of Rooms
+ */
+router.get('/chain/hotel/:hotel_id/room-search', room_controller.room_search);
 
-// // POST create a booking for the customer
-// router.post('/bookings/:id/customer/:customer_id', booking_controller.create_booking);
+/**
+ * @openapi
+ * paths:
+ *   /hms/api/bookings/:
+ *     post:
+ *       tags:
+ *         - Booking
+ *       summary: create a booking for the customer
+ *       requestBody:
+ *         content:
+ *           'application/x-www-form-urlencoded':
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 room_ID:
+ *                   type: number
+ *                   default: 111
+ *                 start_date:
+ *                   type: number
+ *                   default: '2023.03.06'
+ *                 end_date:
+ *                   type: string
+ *                   default: '2023.03.14'
+ *                 rental_price:
+ *                   type: number
+ *                   default: 200
+ *                 additional_charge:
+ *                   type: number
+ *                   default: 25
+ *                 customer_ID:
+ *                   type: number
+ *                   default: 1
+ *       responses:
+ *         201:
+ *           description: Created a booking
+ */
+router.post('/bookings/', booking_controller.create_booking);
 
-// // GET fetch booking details for the customer
-// router.get('/bookings/:id', booking_controller.fetch_booking_details);
+/**
+ * @openapi
+ * paths:
+ *   /hms/api/chain/hotel/{hotel_id}/room/:
+ *     get:
+ *       tags:
+ *         - Room 
+ *       summary: fetch all rooms of a hotel
+ *       parameters: 
+ *       - name: hotel_id
+ *         in: path
+ *         required: true 
+ *       responses:
+ *         200:
+ *           description: Booking details
+ */
+router.get('/bookings/:id', booking_controller.fetch_booking_details);
 
 // // GET fetch all bookings of a customer
 // router.get('/bookings/customer/:customer_id', booking_controller.fetch_all_bookings);
@@ -283,10 +582,6 @@ router.get('/chain/hotel/:hotel_id/room/', room_controller.rooms_list);
  *       responses:
  *         200:
  *           description: Employee Details
- *           content: 
- *             application/json:
- *               schema:
- *                 $ref: '#/components/schemes/Room'
  */
 router.get('/employee/:id', employee_controller.fetch_employee_details);
 
@@ -301,10 +596,6 @@ router.get('/employee/:id', employee_controller.fetch_employee_details);
  *       responses:
  *         200:
  *           description: List of Employees
- *           content: 
- *             application/json:
- *               schema:
- *                 $ref: '#/components/schemes/Room'
  */
 router.get('/employee', employee_controller.fetch_all_employees);
 
@@ -313,7 +604,5 @@ router.get('/employee', employee_controller.fetch_all_employees);
 
 // // DELETE delete an employee
 // router.delete('/employee/:id', employee_controller.delete_employee);
-
-
 
 module.exports = router;

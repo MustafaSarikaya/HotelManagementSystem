@@ -1,9 +1,17 @@
-const Booking = require('../Models/bookings');
+const model = require('../Models/bookings');
 
-// POST /bookings/:id/customer/:customer_id
+// POST /bookings/
 // Create a booking for the customer
-exports.create_booking = (req, res, next) => {
-    res.send('respond with a resource');
+exports.create_booking = async (req, res, next) => {
+    try {
+        const booking = await model.create_booking(req.body);
+        if (booking == 1) {
+            res.status(201).send('Created a booking');
+        }
+    } catch (e) {
+        console.error('Error fetching hotel chains:', e);
+        res.status(500).send('Internal server error');
+    }
 }
 
 // GET /bookings/:id
