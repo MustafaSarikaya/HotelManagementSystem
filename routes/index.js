@@ -173,7 +173,7 @@ router.delete('/chain/:chain_id', hotel_controller.delete_hotel_chain);
  *                   type: string
  *                   default: 'Marriott Hotel'
  *                 rating:
- *                   type: numebr
+ *                   type: number
  *                   default: 4
  *                 number_rooms:
  *                   type: number
@@ -298,8 +298,50 @@ router.put('/chain/hotel/:hotel_id', hotel_controller.update_hotel_details);
  */
 router.delete('/chain/hotel/:hotel_id', hotel_controller.delete_hotel);
 
-// // POST create a room
-// router.post('/chain/:chain_id/hotel/:hotel_id/room/:room_id', room_controller.room_create);
+/**
+ * @openapi
+ * paths:
+ *   /hms/api/chain/hotel/{hotel_id}/room:
+ *     post:
+ *       tags:
+ *         - Room
+ *       summary: create a room 
+ *       parameters:
+ *       - name: hotel_id
+ *         in: path
+ *         required: true 
+ *       requestBody:
+ *         content:
+ *           'application/x-www-form-urlencoded':
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 room_number:
+ *                   type: number
+ *                   default: 111
+ *                 price_per_night:
+ *                   type: number
+ *                   default: 104
+ *                 amenities:
+ *                   type: string
+ *                   default: 'wifi,tv,PS5'
+ *                 room_capacity:
+ *                   type: number
+ *                   default: 5
+ *                 view_type:
+ *                   type: string
+ *                   default: 'mountain'
+ *                 extendability:
+ *                   type: number
+ *                   default: 1
+ *                 problems:
+ *                   type: string
+ *                   default: 'none'
+ *       responses:
+ *         201:
+ *           description: Created a room
+ */
+router.post('/chain/hotel/:hotel_id/room', room_controller.room_create);
 
 /**
  * @openapi
@@ -337,11 +379,71 @@ router.get('/chain/hotel/room/:room_id', room_controller.room_detail);
  */
 router.get('/chain/hotel/:hotel_id/room/', room_controller.rooms_list);
 
-// // PUT update room details
-// router.put('/chain/:chain_id/hotel/:hotel_id/room/:room_id', room_controller.room_update);
+/**
+ * @openapi
+ * paths:
+ *   /hms/api/chain/hotel/room/{room_id}:
+ *     put:
+ *       tags:
+ *         - Room
+ *       summary: update a room 
+ *       parameters:
+ *       - name: room_id
+ *         in: path
+ *         required: true 
+ *       requestBody:
+ *         content:
+ *           'application/x-www-form-urlencoded':
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 hotel_id:
+ *                   type: number
+ *                   default: 32
+ *                 room_number:
+ *                   type: number
+ *                   default: 111
+ *                 price_per_night:
+ *                   type: number
+ *                   default: 104
+ *                 amenities:
+ *                   type: string
+ *                   default: 'wifi,tv,PS5'
+ *                 room_capacity:
+ *                   type: number
+ *                   default: 5
+ *                 view_type:
+ *                   type: string
+ *                   default: 'mountain'
+ *                 extendability:
+ *                   type: number
+ *                   default: 1
+ *                 problems:
+ *                   type: string
+ *                   default: 'none'
+ *       responses:
+ *         200:
+ *           description: Updated a room
+ */
+router.put('/chain/hotel/room/:room_id', room_controller.room_update);
 
-// // DELETE delete a room
-// router.delete('/chain/:chain_id/hotel/:hotel_id/room/:room_id', room_controller.room_delete);
+/**
+ * @openapi
+ * paths:
+ *   /hms/api/chain/hotel/room/{room_id}:
+ *     delete:
+ *       tags:
+ *         - Room 
+ *       summary: delete room
+ *       parameters:
+ *       - name: room_id
+ *         in: path
+ *         required: true
+ *       responses:
+ *         203:
+ *           description: 
+ */
+router.delete('/chain/hotel/room/:room_id', room_controller.room_delete);
 
 // // GET fecth available rooms
 // router.get('/chain/:chain_id/hotel/:hotel_id/room/search', room_controller.rooms_search);
