@@ -448,7 +448,7 @@ router.delete('/chain/hotel/room/:room_id', room_controller.room_delete);
 /**
  * @openapi
  * paths:
- *   /hms/api/chain/hotel/room/search:
+ *   /hms/api/chain/hotel/{hotel_id}/room-search:
  *     get:
  *       tags:
  *         - Room 
@@ -457,35 +457,35 @@ router.delete('/chain/hotel/room/:room_id', room_controller.room_delete);
  *       - name: hotel_id
  *         in: path
  *         required: true
- *       requestBody:
- *         content:
- *           'application/x-www-form-urlencoded':
- *             schema:
- *               type: object
- *               properties:
- *                 room_capacity:
- *                   type: number
- *                   default: 2
- *                 address:
- *                   type: String
- *                   default: "Toronto"
- *                 name:
- *                   type: string
- *                   default: "Marriott Hotel"
- *                 rating:
- *                   type: number
- *                   default: 4
- *                 room_number:
- *                   type: number
- *                   default: 5
- *                 price_per_night:
- *                   type: number
- *                   default: 150
+ *       - name: room_capacity
+ *         in: query
+ *         default: 2
+ *       - name: start_date
+ *         in: query
+ *         default: '2023.03.06'
+ *       - name: end_date
+ *         in: query
+ *         default: '2023.03.14'
+ *       - name: address
+ *         in: query
+ *         default: "Toronto"
+ *       - name: name
+ *         in: query
+ *         default: "Marriott Hotel"
+ *       - name: rating
+ *         in: query
+ *         default: 4
+ *       - name: price_per_night
+ *         in: query
+ *         default: 150
+ *       - name: room_number
+ *         in: query
+ *         default: 5
  *       responses:
  *         200:
  *           description: A List of Rooms
  */
-router.get('/chain/hotel/:hotel_id/room/search', room_controller.rooms_search);
+router.get('/chain/hotel/:hotel_id/room-search', room_controller.room_search);
 
 /**
  * @openapi

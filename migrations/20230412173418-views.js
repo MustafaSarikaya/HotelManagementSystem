@@ -39,10 +39,11 @@ exports.up = function(db, callback) {
     function roomHotel(err) {
       if (err) { callback(err); return; }
       const roomHotel = `
-        CREATE VIEW room_hotel AS
-        SELECT *
-        FROM room NATURAL JOIN hotel;
+      CREATE VIEW room_hotel AS
+      SELECT r.room_ID, r.room_number, r.room_capacity, r.price_per_night, h.name, h.address, h.rating, h.hotel_ID, b.start_date, b.end_date
+      FROM room AS r JOIN hotel AS h ON r.hotel_ID = h.hotel_ID LEFT JOIN booking AS b ON r.room_ID = b.room_ID;
       `;
+
       db.runSql(roomHotel, callback);
     }
   };

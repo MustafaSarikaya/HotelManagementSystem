@@ -66,26 +66,14 @@ exports.room_create = async (req, res, next) => {
     }
 }
 
-// GET /chain/:chain_id/hotel/:hotel_id/rooms/aviaible
+// GET /chain/hotel/rooms/aviaible
 // Fetch all available rooms of a hotel
-exports.rooms_search = async (req, res, next) => {
+exports.room_search = async (req, res, next) => {
     try {
-        const rooms = await model.search_rooms(req.body, req.params.hotel_id);
-        res.send({ result: rooms});
+        const rooms = await model.search_rooms(req.query);
+        res.send({ results: rooms});
     } catch (e) {
         console.error('Error fetching rooms:', e);
         res.status(500).send('Internal server error');
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-

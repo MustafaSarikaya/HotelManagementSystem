@@ -87,38 +87,48 @@ exports.delete_room = (async (id) => {
     }
 });
 
-exports.search_rooms = (async (data, id) => {
+exports.search_rooms = (async (data) => {
     try {
-        var keys = [id];
-        const sql = `SELECT * FROM room_hotel
-                            WHERE hotel_ID = ?`;
+        var keys = [];
+        var sql = "SELECT * FROM room_hotel WHERE 1 ";
         
+        if (data.start_date && data.end_date){
+            sql = sql.concat(" AND start_date NOT BETWEEN ? AND ?");
+            keys.push(data.start_date);
+            keys.push(data.end_date);
+        }
+
         if (data.room_capacity){
-            sql += `AND room_capacity = ?`;
+            sql = sql.concat(" AND room_capacity = ?");
             keys.push(data.room_capacity);
         }
 
         if (data.address){
-            sql += `AND address = ?`;
+            sql = sql.concat(" AND address = ?");
             keys.push(data.address);
         }
         
         if (data.name){
-            sql += `AND name = ?`;
+            sql = sql.concat(" AND name = ?");
             keys.push(data.name);
         }
 
         if (data.rating){
-            sql += `AND room_number = ?`;
+            sql = sql.concat(" AND room_number = ?");
             keys.push(data.room_number);
         }
 
         if (data.price_per_night){
-            sql += `AND price_per_night = ?`;
+            sql = sql.concat(" AND price_per_night = ?");
             keys.push(data.price_per_night);
         }
 
-        sql += `ORDER BY room_number DESC;`;
+        if (data.room_number) {
+            sql = sql.concat(" AND room_number = ?");
+            keys.push(data.room_number);
+        }
+
+        sql = sql.concat(" ORDER BY room_number DESC;");
 
         const result = await connection.query(sql, keys);
         return result;
