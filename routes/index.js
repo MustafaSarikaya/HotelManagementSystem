@@ -445,8 +445,47 @@ router.put('/chain/hotel/room/:room_id', room_controller.room_update);
  */
 router.delete('/chain/hotel/room/:room_id', room_controller.room_delete);
 
-// // GET fecth available rooms
-// router.get('/chain/:chain_id/hotel/:hotel_id/room/search', room_controller.rooms_search);
+/**
+ * @openapi
+ * paths:
+ *   /hms/api/chain/hotel/room/search:
+ *     get:
+ *       tags:
+ *         - Room 
+ *       summary: fetch available rooms
+ *       parameters:
+ *       - name: hotel_id
+ *         in: path
+ *         required: true
+ *       requestBody:
+ *         content:
+ *           'application/x-www-form-urlencoded':
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 room_capacity:
+ *                   type: number
+ *                   default: 2
+ *                 address:
+ *                   type: String
+ *                   default: "Toronto"
+ *                 name:
+ *                   type: string
+ *                   default: "Marriott Hotel"
+ *                 rating:
+ *                   type: number
+ *                   default: 4
+ *                 room_number:
+ *                   type: number
+ *                   default: 5
+ *                 price_per_night:
+ *                   type: number
+ *                   default: 150
+ *       responses:
+ *         200:
+ *           description: A List of Rooms
+ */
+router.get('/chain/hotel/:hotel_id/room/search', room_controller.rooms_search);
 
 /**
  * @openapi
@@ -565,7 +604,5 @@ router.get('/employee', employee_controller.fetch_all_employees);
 
 // // DELETE delete an employee
 // router.delete('/employee/:id', employee_controller.delete_employee);
-
-
 
 module.exports = router;

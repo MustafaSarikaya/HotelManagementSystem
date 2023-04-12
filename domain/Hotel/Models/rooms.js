@@ -86,3 +86,44 @@ exports.delete_room = (async (id) => {
         return e;
     }
 });
+
+exports.search_rooms = (async (data, id) => {
+    try {
+        var keys = [id];
+        const sql = `SELECT * FROM room_hotel
+                            WHERE hotel_ID = ?`;
+        
+        if (data.room_capacity){
+            sql += `AND room_capacity = ?`;
+            keys.push(data.room_capacity);
+        }
+
+        if (data.address){
+            sql += `AND address = ?`;
+            keys.push(data.address);
+        }
+        
+        if (data.name){
+            sql += `AND name = ?`;
+            keys.push(data.name);
+        }
+
+        if (data.rating){
+            sql += `AND room_number = ?`;
+            keys.push(data.room_number);
+        }
+
+        if (data.price_per_night){
+            sql += `AND price_per_night = ?`;
+            keys.push(data.price_per_night);
+        }
+
+        sql += `ORDER BY room_number DESC;`;
+
+        const result = await connection.query(sql, keys);
+        return result;
+    } catch (e) {
+        console.log(e);
+        return e;
+    }
+});
