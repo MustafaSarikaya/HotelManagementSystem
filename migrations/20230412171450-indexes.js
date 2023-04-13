@@ -17,6 +17,7 @@ exports.setup = function(options, seedLink) {
 exports.up = function(db, callback) {
   const room_capacity = `CREATE INDEX room_capacity_price_idx
                                  ON room(room_capacity, price_per_night);`
+                                 
   db.runSql(room_capacity, hotelRatingAddress);
 
   function hotelRatingAddress(err) {

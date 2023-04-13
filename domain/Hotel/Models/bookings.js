@@ -21,3 +21,15 @@ exports.create_booking = (async (data) => {
     }
 });
 
+exports.get_all_customer_bookings = (async (id) => {
+    try {
+        const sql = `SELECT * FROM booking
+                        WHERE customer_ID = ?;`;
+
+        const result = await connection.query(sql, [id]);
+        return result;
+    } catch (e) {
+        console.log(e);
+        return e;
+    }
+});

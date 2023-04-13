@@ -17,7 +17,22 @@ router.post('/customer/:id', customer_controller.register_customer);
 // PUT update customer details
 router.put('/customer/:id', customer_controller.update_customer_details);
 
-// GET fetch customer details
+/**
+ * @openapi
+ * paths:
+ *   /hms/api/customer/{id}:
+ *     get:
+ *       tags:
+ *         - Customer 
+ *       summary: fetch booking details
+ *       parameters: 
+ *       - name: id
+ *         in: path
+ *         required: true 
+ *       responses:
+ *         200:
+ *           description: Customer details
+ */
 router.get('/customer/:id', customer_controller.fetch_customer_details);
 
 // POST create a booking for the customer

@@ -528,13 +528,13 @@ router.post('/bookings/', booking_controller.create_booking);
 /**
  * @openapi
  * paths:
- *   /hms/api/chain/hotel/{hotel_id}/room/:
+ *   /hms/api/bookings/{id}:
  *     get:
  *       tags:
- *         - Room 
- *       summary: fetch all rooms of a hotel
+ *         - Booking 
+ *       summary: fetch booking details
  *       parameters: 
- *       - name: hotel_id
+ *       - name: id
  *         in: path
  *         required: true 
  *       responses:
@@ -543,8 +543,23 @@ router.post('/bookings/', booking_controller.create_booking);
  */
 router.get('/bookings/:id', booking_controller.fetch_booking_details);
 
-// // GET fetch all bookings of a customer
-// router.get('/bookings/customer/:customer_id', booking_controller.fetch_all_bookings);
+/**
+ * @openapi
+ * paths:
+ *   /hms/api/bookings/customer/{customer_id}:
+ *     get:
+ *       tags:
+ *         - Booking
+ *       summary: Fetch all bookings
+ *       responses:
+ *         200:
+ *           description: List of hotel chains
+ *           content: 
+ *             application/json:
+ *               schema:
+ *                 type: array
+ */
+router.get('/bookings/customer/:customer_id', booking_controller.fetch_all_bookings);
 
 // // PUT Update booking details for the customer
 // router.put('/bookings/:id', booking_controller.update_booking);
@@ -555,8 +570,23 @@ router.get('/bookings/:id', booking_controller.fetch_booking_details);
 // // GET fetch rental details for the customer
 // router.get('/rentals/:id', rental_controller.fetch_rental_details);
 
-// // GET fetch all rentals of a customer
-// router.get('/rentals/customer/:customer_id', rental_controller.fetch_all_rentals);
+/**
+ * @openapi
+ * paths:
+ *   /hms/api/rentals/customer/{customer_id}:
+ *     get:
+ *       tags:
+ *         - Rental
+ *       summary: Fetch all rentals
+ *       responses:
+ *         200:
+ *           description: List of rentals of a customer
+ *           content: 
+ *             application/json:
+ *               schema:
+ *                 type: array
+ */
+router.get('/rentals/customer/:customer_id', rental_controller.fetch_all_rentals);
 
 // // PUT Update rental details for the customer
 // router.put('/rentals/:id', rental_controller.update_rental);
