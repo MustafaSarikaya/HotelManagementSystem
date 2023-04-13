@@ -14,8 +14,14 @@ exports.fetch_rental_details = (req, res, next) => {
 
 // GET /rentals/customer/:customer_id
 // Fetch all rentals for the customer
-exports.fetch_all_rentals = (req, res, next) => {
-    res.send('respond with a resource');
+exports.fetch_all_rentals = async (req, res, next) => {
+    try {
+        const rentals = await model.get_all_customer_rentals(req.params.customer_id);
+        res.send({ result: rentals});
+    } catch (e) {
+        console.error('Error fetching hotel chains:', e);
+        res.status(500).send('Internal server error');
+    }
 }
 
 // PUT /rentals/:id
